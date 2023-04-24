@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="https://img.icons8.com/color/48/000000/car--v1.png">
+</head>
+<body>
+    <button class="ap" onclick="ap()"></button>
+    <button class="sus" onclick="sus()"></button>
+
+    <main>
+        <h1>APROBADOS: <span id="aprobados">0</span></h1>
+        <h1>SUSPENDIDOS: <span id="suspendidos">0</span></h1>
+        <h4>TOTAL: <span id="total">0</span></h4>
+        
+        <button class="aprobado" onclick="aprobado()">APROBADO</button>
+        <button class="suspendido" onclick="suspendido()">SUSPENDIDO</button><br>
+        <button class="restart" onclick="reset()">RESTART</button>
+    </main>
+    <script>
+
+        aprobados = 0;
+        suspendidos = 0;
+
+        if(localStorage.getItem("aprobados")) aprobados = localStorage.getItem("aprobados");
+        if(localStorage.getItem("suspendidos")) suspendidos = localStorage.getItem("suspendidos");
+        updateText();
+
+        const aprobado = () => {
+            aprobados++;
+            updateText();
+            save();
+        }
+
+        const suspendido = () => {
+            suspendidos++;
+            updateText();
+            save();
+        }
+
+        function updateText(){
+            aprobados = parseInt(aprobados);
+            suspendidos = parseInt(suspendidos);
+            document.querySelector("#aprobados").innerHTML = aprobados;
+            document.querySelector("#suspendidos").innerHTML = suspendidos;
+            document.querySelector("#total").innerHTML = (aprobados+suspendidos);
+
+        }
+
+        function save(){
+            localStorage.setItem("aprobados", aprobados)
+            localStorage.setItem("suspendidos", suspendidos)
+        }
+
+        function reset(){
+            localStorage.setItem("aprobados", 0)
+            localStorage.setItem("suspendidos", 0)
+            aprobados = 0;
+            suspendidos = 0;
+            updateText();
+        }
+
+        function ap(){
+            aprobados--;
+            localStorage.setItem("aprobados", aprobados)
+            updateText();
+        }
+
+        function sus(){
+            suspendidos--;
+            localStorage.setItem("suspendidos", suspendidos)
+            updateText();
+        }
+
+
+    </script>
+</body>
+</html>
